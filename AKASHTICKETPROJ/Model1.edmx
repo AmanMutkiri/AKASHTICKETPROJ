@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TSS_CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CustomerArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAddress" Type="nvarchar" MaxLength="150" />
+          <Property Name="CustomerContactPerson" Type="nvarchar" MaxLength="50" />
+          <Property Name="CostomerMobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="Referral" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Tickets">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="TicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowID" Type="int" Nullable="false" />
+          <Property Name="Ticket_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ticket_Subject" Type="nvarchar" MaxLength="90" />
+          <Property Name="Ticket_Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Ticket_Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tbl_Tickets_tbl">
+          <End Role="tbl" Type="Self.tbl" Multiplicity="1" />
+          <End Role="tbl_Tickets" Type="Self.tbl_Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl">
+              <PropertyRef Name="RowID" />
+            </Principal>
+            <Dependent Role="tbl_Tickets">
+              <PropertyRef Name="RowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TSS_CRMModelStoreContainer">
+          <EntitySet Name="tbl" EntityType="Self.tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Tickets" EntityType="Self.tbl_Tickets" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Tickets_tbl" Association="Self.FK_tbl_Tickets_tbl">
+            <End Role="tbl" EntitySet="tbl" />
+            <End Role="tbl_Tickets" EntitySet="tbl_Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TSS_CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CostomerMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Referral" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_Tickets" Relationship="TSS_CRMModel.FK_tbl_Tickets_tbl" FromRole="tbl" ToRole="tbl_Tickets" />
+        </EntityType>
+        <EntityContainer Name="TSS_CRMEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbls" EntityType="Self.tbl" />
+          <EntitySet Name="tbl_Tickets" EntityType="TSS_CRMModel.tbl_Tickets" />
+          <AssociationSet Name="FK_tbl_Tickets_tbl" Association="TSS_CRMModel.FK_tbl_Tickets_tbl">
+            <End Role="tbl" EntitySet="tbls" />
+            <End Role="tbl_Tickets" EntitySet="tbl_Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_Tickets">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="TicketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowID" Type="Int32" Nullable="false" />
+          <Property Name="Ticket_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ticket_Subject" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Ticket_Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Ticket_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl" Relationship="TSS_CRMModel.FK_tbl_Tickets_tbl" FromRole="tbl_Tickets" ToRole="tbl" />
+        </EntityType>
+        <Association Name="FK_tbl_Tickets_tbl">
+          <End Type="TSS_CRMModel.tbl" Role="tbl" Multiplicity="1" />
+          <End Type="TSS_CRMModel.tbl_Tickets" Role="tbl_Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl">
+              <PropertyRef Name="RowID" />
+            </Principal>
+            <Dependent Role="tbl_Tickets">
+              <PropertyRef Name="RowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TSS_CRMModelStoreContainer" CdmEntityContainer="TSS_CRMEntities1">
+          <EntitySetMapping Name="tbls">
+            <EntityTypeMapping TypeName="TSS_CRMModel.tbl">
+              <MappingFragment StoreEntitySet="tbl">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerArea" ColumnName="CustomerArea" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerContactPerson" ColumnName="CustomerContactPerson" />
+                <ScalarProperty Name="CostomerMobile" ColumnName="CostomerMobile" />
+                <ScalarProperty Name="Referral" ColumnName="Referral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Tickets">
+            <EntityTypeMapping TypeName="TSS_CRMModel.tbl_Tickets">
+              <MappingFragment StoreEntitySet="tbl_Tickets">
+                <ScalarProperty Name="Ticket_Status" ColumnName="Ticket_Status" />
+                <ScalarProperty Name="Ticket_Description" ColumnName="Ticket_Description" />
+                <ScalarProperty Name="Ticket_Subject" ColumnName="Ticket_Subject" />
+                <ScalarProperty Name="Ticket_Type" ColumnName="Ticket_Type" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
